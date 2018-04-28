@@ -228,4 +228,6 @@ return [
 
     ],
 
+
+    "adminsId" => [1],
 ];

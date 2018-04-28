@@ -23,7 +23,11 @@ Route::middleware($middleware)->group(function () {
     Route::resource("book", "BookController");
 
     //backend
-    Route::prefix("admin")->namespace("Admin")->name("admin.")->group(function () {
+    Route::middleware(["isAdmin"])
+        ->prefix("admin")
+        ->namespace("Admin")
+        ->name("admin.")
+        ->group(function () {
         Route::resource("book", "BookController")->only([
             "show", "edit", "update", "index", "destroy",
         ]);

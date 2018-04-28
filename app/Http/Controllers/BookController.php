@@ -12,6 +12,7 @@ class BookController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
+        $this->authorizeResource(Book::class);
     }
 
     /**
@@ -92,6 +93,7 @@ class BookController extends Controller
     }
 
     /**
+     * TODO: Только для авторов книг!
      * Show the form for editing the specified resource.
      *
      * @param  \App\Book  $book
@@ -113,7 +115,7 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $validator = Book::createValidator($book->getAttributes());
+        $validator = Book::createValidator($request->input());
 
         if ($validator->fails()) {
             return redirect()->route("book.edit", ["book" => $book->id])
@@ -141,7 +143,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        if (false)
+        if ($book->delete())
             return redirect()->route("book.index");
         else
             return redirect()->route("book.show", ["book" => $book->id])
