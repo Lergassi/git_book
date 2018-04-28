@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 $middleware = [];
 
 if (Config::get('app.debug')) {
@@ -23,15 +19,20 @@ if (Config::get('app.debug')) {
 
 Route::middleware($middleware)->group(function () {
     //frontend
+    Route::get("/", "SiteController@homepage")->name("homepage");
     Route::resource("book", "BookController");
 
     //backend
     Route::prefix("admin")->namespace("Admin")->name("admin.")->group(function () {
-        Route::resource("book", "Admin\\BookController")->only([
-            "edit", "update", "index", "destroy",
+        Route::resource("book", "BookController")->only([
+            "show", "edit", "update", "index", "destroy",
         ]);
+
+        //test
+        Route::get("test/html", "TestController@html");
     });
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

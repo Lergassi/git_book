@@ -1,0 +1,17 @@
+.input,
+.textarea {
+  width: 100%;
+  border: 1px solid #d2d6de;
+  padding: 8px;
+}
+.input-group {
+  margin-bottom: 10px;
+}
+.label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.textarea {
+  font-family: "Open sans", "sans-serif";
+}

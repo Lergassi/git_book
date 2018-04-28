@@ -1,8 +1,10 @@
 @extends("layouts.main")
 
 @section("content")
-    <div class="block">
-        <div class="block__title">Списки ваших книг</div>
+    <div class="block block_border-primary">
+        <div class="block__title">
+            Списки ваших книг
+        </div>
         <div class="block__content">
             <table class="table">
                 <thead>

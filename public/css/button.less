@@ -1,0 +1,53 @@
+@import "variables";
+
+@btn-border-color: #ddd;
+@btn-height: 36px;
+@btn-padding-side: 12px;
+
+.btn {
+  text-decoration: none;
+  color: @base-color;
+  border: 1px solid @btn-border-color;
+  //padding: 8px 12px;
+  padding-left: @btn-padding-side;
+  padding-right: @btn-padding-side;
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: top;
+  line-height: @btn-height;
+  height: @btn-height;
+  background-color: @color-white;
+}
+
+.btn_primary {
+  .btn_mod(@color-primary);
+}
+
+.btn_success {
+  .btn_mod(@color-success);
+}
+
+.btn_info {
+  .btn_mod(@color-info);
+}
+
+.btn_danger {
+  .btn_mod(@color-danger);
+}
+
+.btn_warning {
+  .btn_mod(@color-warning);
+}
+
+.btn_mod(@color) {
+  background-color: @color;
+  color: @color-white;
+  border: 1px solid lighten(@color, 4%);
+
+  &:hover {
+    background-color: lighten(@color, 4%);
+    border: 1px solid lighten(@color, 8%);
+    cursor: pointer;
+  }
+}
