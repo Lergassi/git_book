@@ -26,4 +26,9 @@ class Book extends Model
             "book.description" => "required|string|max:512",
         ]);
     }
+
+    public function chapters()
+    {
+        return $this->hasMany("App\\Chapter");
+    }
 }

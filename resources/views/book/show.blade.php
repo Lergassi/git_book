@@ -7,6 +7,7 @@
         </div>
         <div class="block__content">
             <div class="block-simple">
+                <a class="btn btn_primary" href="{{route("chapter.create", ["book" => $book->id])}}">Добавить главу</a>
                 <a class="btn btn_primary" href="{{route("book.edit", ["book" => $book->id])}}">Редактировать</a>
                 <form class="block-inline" action="{{route("book.destroy", ["book" => $book->id])}}" method="POST">
                     {{--TODO: Временное удаление. Сделать отдельную страницу.--}}
@@ -25,4 +26,14 @@
             </table>
         </div>
     </div>
+
+    @include("chapter._list", [
+            "columns" => [
+                "id",
+                "title",
+                "next_chapter_id",
+                "created_at",
+                ],
+            "chapters" => $book->chapters
+            ])
 @endsection

@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Book;
+use App\Chapter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ChapterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,17 @@ class ChapterController extends Controller
      */
     public function index()
     {
-        //
+        $chapters = Chapter::orderBy("title", "ASC")->get();
+
+        return view("admin/chapter/index", [
+            "columns" => [
+                "id",
+                "title",
+                "created_at",
+                "book_id",
+            ],
+            "chapters" => $chapters,
+        ]);
     }
 
     /**
@@ -42,23 +58,29 @@ class ChapterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Book  $book
+     * @param Chapter $chapter
      * @return \Illuminate\Http\Response
+     * @internal param Book $book
      */
-    public function show(Book $book)
+    public function show(Chapter $chapter)
     {
-        //
+        return view("admin/chapter/show", [
+            "chapter" => $chapter,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Book  $book
+     * @param Chapter $chapter
      * @return \Illuminate\Http\Response
+     * @internal param Book $book
      */
-    public function edit(Book $book)
+    public function edit(Chapter $chapter)
     {
-        //
+        return view("admin/chapter/edit", [
+            "chapter" => $chapter,
+        ]);
     }
 
     /**

@@ -21,6 +21,11 @@ Route::middleware($middleware)->group(function () {
     //frontend
     Route::get("/", "SiteController@homepage")->name("homepage");
     Route::resource("book", "BookController");
+    Route::resource("chapter", "ChapterController")->except([
+        "create", "index",
+    ]);
+    Route::get("chapter/create/{book}", "ChapterController@create")->name("chapter.create")->where("book", "\d+");
+    Route::get("chapters/{book}", "ChapterController@index")->name("chapter.index")->where("book", "\d+");
 
     //backend
     Route::middleware(["isAdmin"])
@@ -29,6 +34,9 @@ Route::middleware($middleware)->group(function () {
         ->name("admin.")
         ->group(function () {
         Route::resource("book", "BookController")->only([
+            "show", "edit", "update", "index", "destroy",
+        ]);
+        Route::resource("chapter", "ChapterController")->only([
             "show", "edit", "update", "index", "destroy",
         ]);
 

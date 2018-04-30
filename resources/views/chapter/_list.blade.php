@@ -1,9 +1,7 @@
-@extends("layouts.main")
-
-@section("content")
+@section("list")
     <div class="block block_border-primary">
         <div class="block__title">
-            Списки ваших книг
+            Главы книги
         </div>
         <div class="block__content">
             <table class="table">
@@ -14,15 +12,15 @@
                     @endforeach
                     </tr>
                 </thead>
-                @foreach($books as $book)
+                @foreach($chapters as $chapter)
                     <tr>
-                        <td><a href="{{route("book.show", ["book" => $book->id])}}">{{$book->title}}</a></td>
-                        <td>{{$book->description}}</td>
-                        <td>{{$book->created_at}}</td>
-                        <td><a href="{{route("chapter.index", ["book" => $book->id])}}">Главы</a></td>
+                        <td><a href="{{route("chapter.show", ["chapter" => $chapter->id])}}">{{$chapter->title}}</a></td>
+                        <td>{{$chapter->description}}</td>
+                        <td>{{$chapter->created_at}}</td>
+                        <td>{{$chapter->next_chapter_id}}</td>
                     </tr>
                 @endforeach
             </table>
         </div>
     </div>
-@endsection
+@show

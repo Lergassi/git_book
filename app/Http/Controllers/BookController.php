@@ -29,6 +29,7 @@ class BookController extends Controller
                 "title",
                 "description",
                 "created_at",
+                "chapters",
             ],
             "books" => $books,
         ]);
