@@ -27,6 +27,13 @@ Route::middleware($middleware)->group(function () {
     Route::get("chapter/create/{book}", "ChapterController@create")->name("chapter.create")->where("book", "\d+");
     Route::get("chapters/{book}", "ChapterController@index")->name("chapter.index")->where("book", "\d+");
 
+    Route::prefix("commit")->name("commit.")->group(function () {
+        Route::get("/{commit}", "CommitController@show")->name("show")->where("commit", "\d+");
+        Route::post("/{commit}/checkout", "CommitController@checkout")->name("checkout")->where("commit", "\d+");
+        Route::post("/create/{book}", "CommitController@create")->name("create")->where("book", "\d+");
+        Route::get("/book/{book}", "CommitController@index")->name("index")->where("book", "\d+");
+    });
+
     //backend
     Route::middleware(["isAdmin"])
         ->prefix("admin")

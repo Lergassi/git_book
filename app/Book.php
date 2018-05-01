@@ -31,4 +31,14 @@ class Book extends Model
     {
         return $this->hasMany("App\\Chapter");
     }
+
+    public function headCommit()
+    {
+        return Commit::head($this);
+    }
+
+    public function commits()
+    {
+        return $this->hasMany("App\\Commit", "book_id", "id");
+    }
 }

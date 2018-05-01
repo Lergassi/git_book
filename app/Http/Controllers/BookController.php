@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Commit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -150,5 +151,10 @@ class BookController extends Controller
             return redirect()->route("book.show", ["book" => $book->id])
                 ->withErrors(["Ошибка при удалении книги."])
                 ->withInput();
+    }
+
+    public function commit(Book $book)
+    {
+        return Commit::create($book);
     }
 }
