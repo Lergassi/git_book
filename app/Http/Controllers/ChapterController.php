@@ -125,7 +125,7 @@ class ChapterController extends Controller
      */
     public function edit(Chapter $chapter)
     {
-        $this->authorize('edit', [$chapter]);
+        $this->authorize('update', [$chapter]);
 
         return view("chapter/edit", [
             "chapter" => $chapter,
