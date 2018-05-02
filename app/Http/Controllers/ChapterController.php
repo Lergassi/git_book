@@ -85,19 +85,9 @@ class ChapterController extends Controller
         $chapter->text = $request->input("chapter.text");
         $chapter->book_id = $request->input("chapter.book_id");
 
-        $prevChapter = Chapter::where("id", $request->input("chapter.prev_chapter_id"))->first();
-
-        DB::beginTransaction();
         if ($chapter->save()) {
-            $prevChapter->next_chapter_id = $chapter->id;
-            $prevChapter->save();
-
-            DB::commit();
-
             return redirect()->route("chapter.show", ["chapter" => $chapter->id]);
         } else {
-            DB::rollBack();
-
             return redirect()->route("chapter.create", ["chapter" => $chapter->book_id])
                 ->withErrors(["Ошибка при создании главы."])
                 ->withInput();
