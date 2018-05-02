@@ -84,6 +84,7 @@ class ChapterController extends Controller
         $chapter->title = $request->input("chapter.title");
         $chapter->text = $request->input("chapter.text");
         $chapter->book_id = $request->input("chapter.book_id");
+        $chapter->status = Chapter::STATUS_ACTIVE;
 
         if ($chapter->save()) {
             return redirect()->route("chapter.show", ["chapter" => $chapter->id]);
@@ -157,13 +158,18 @@ class ChapterController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @param  \App\Chapter  $chapter
      * @return \Illuminate\Http\Response
      */
     public function destroy(Chapter $chapter)
     {
-        $this->authorize('destroy', [$chapter]);
+        $this->authorize('delete', [$chapter]);
+
+        if ($chapter->inactive()) {
+            return redirect()->route("book.show", ["book" => $chapter->book_id]);
+        } else {
+            return redirect()->route("chapter.show", ["chapter" => $chapter->id])
+                ->withErrors(["При удалении главы произошла ошибка."]);
+        }
     }
 }

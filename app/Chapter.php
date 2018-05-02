@@ -13,11 +13,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $text
  * @property int $book_id
  * @property int $next_chapter_id
+ * @property int $status
  * Class Chapter
  * @package App
  */
 class Chapter extends Model
 {
+    const STATUS_INACTIVE = 10;
+    const STATUS_ACTIVE = 20;
+
     protected $table = "chapters";
 
     public static function createValidator(array $attributes)
@@ -40,23 +44,25 @@ class Chapter extends Model
 
     }
 
-    public function prevChapter()
+    /**
+     * "Удаляет" главу.
+     * @return bool
+     */
+    public function inactive()
     {
+        $this->status = self::STATUS_INACTIVE;
 
+        return $this->save();
     }
 
-    public function nextChapter()
+    /**
+     * Восстанавливает главу.
+     * @return bool
+     */
+    public function active()
     {
+        $this->status = self::STATUS_ACTIVE;
 
-    }
-
-    public function firstChapter()
-    {
-
-    }
-
-    public function lastChapter()
-    {
-
+        return $this->save();
     }
 }

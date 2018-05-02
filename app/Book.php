@@ -2,6 +2,7 @@
 
 namespace App;
 
+use const Grpc\CHANNEL_READY;
 use Validator;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,9 +28,22 @@ class Book extends Model
         ]);
     }
 
+    /**
+     * Только активные главы.
+     * @return $this
+     */
     public function chapters()
     {
-        return $this->hasMany("App\\Chapter");
+        return $this->hasMany("App\\Chapter")->where("status", "=", Chapter::STATUS_ACTIVE);
+    }
+
+    /**
+     * Все главы, в том числе которые в данный момент не активны ("удалены").
+     * @return $this
+     */
+    public function allChapters()
+    {
+        return $this->hasMany("App\\Chapter")->where("status", "=", Chapter::STATUS_ACTIVE);
     }
 
     public function headCommit()

@@ -65,6 +65,7 @@ class ChapterCopy extends Model
             "title",
             "text",
             "book_id",
+            "status",
         ];
     }
 }

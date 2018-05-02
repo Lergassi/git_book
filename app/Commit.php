@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class Commit extends Model
     /**
      * Переключает активные главы на коммит объекта.
      * @return bool
+     * @throws \Exception
      */
     public function checkout()
     {
@@ -26,7 +28,7 @@ class Commit extends Model
         $head = static::head($this->book);
 
         if ($head->id == $this->id) {
-            return false;
+            throw new \Exception("Данная версия книги уже активна.");
         }
 
         $chaptersCopies = $this->chaptersCopies;
@@ -35,10 +37,9 @@ class Commit extends Model
             $chapterCopy->revert();
         }
 
-        static::resetHead($this, $head);
+        static::changeStatus($this->chaptersCopies, $head->chaptersCopies);
 
-        $success = $head->save() && $success;
-        $success = $this->save() && $success;
+        $success = static::resetHead($this, $head) ?? $success;
 
         if ($success) {
             DB::commit();
@@ -53,11 +54,14 @@ class Commit extends Model
      * Меняет местами указатель на последний коммит. Без сохранения.
      * @param Commit $newCommit
      * @param Commit $prevCommit
+     * @return bool
      */
     public static function resetHead(Commit $newCommit, Commit $prevCommit)
     {
         $newCommit->is_head = 1;
         $prevCommit->is_head = 0;
+
+        return $newCommit->save() && $prevCommit->save();
     }
 
     /**
@@ -189,6 +193,36 @@ class Commit extends Model
         } else {
             DB::rollback();
             return $success;
+        }
+    }
+
+    /**
+     * Меняет статусы глав из коммитов. Главы не удаляются, а только меняют статус.
+     * @param Collection $newChaptersCopies
+     * @param Collection $oldChaptersCopies
+     */
+    public static function changeStatus(Collection $newChaptersCopies, Collection $oldChaptersCopies)
+    {
+        $newChaptersActive = [];
+        $oldChaptersActive = [];
+
+        foreach ($oldChaptersCopies as $key => $oldChapter) {
+            $oldChaptersActive[$key] = $oldChapter->chapter_id;
+        }
+
+        foreach ($newChaptersCopies as $key => $newChapter) {
+            $newChaptersActive[$key] = $newChapter->chapter_id;
+        }
+
+        $toActive = array_diff($newChaptersActive, $oldChaptersActive);
+        $toInactive = array_diff($oldChaptersActive, $newChaptersActive);
+
+        foreach ($toActive as $key => $item) {
+            $newChaptersCopies[$key]->chapter->active();
+        }
+
+        foreach ($toInactive as $key => $item) {
+            $oldChaptersCopies[$key]->chapter->inactive();
         }
     }
 }
