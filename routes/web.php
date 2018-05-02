@@ -32,6 +32,7 @@ Route::middleware($middleware)->group(function () {
         Route::post("/{commit}/checkout", "CommitController@checkout")->name("checkout")->where("commit", "\d+");
         Route::post("/create/{book}", "CommitController@create")->name("create")->where("book", "\d+");
         Route::get("/book/{book}", "CommitController@index")->name("index")->where("book", "\d+");
+        Route::post("/fork/{book}", "CommitController@fork")->name("fork")->where("book", "\d+");
     });
 
     //backend

@@ -16,9 +16,12 @@
                     <input class="btn btn_danger" type="submit" name="book[delete]" value="Удалить">
                 </form>
                 <form class="block-inline" action="{{route("commit.create", ["book" => $book->id])}}" method="POST">
-                    {{--{{method_field("PUT")}}--}}
                     {{csrf_field()}}
                     <input class="btn btn_warning" type="submit" name="book[delete]" value="Commit">
+                </form>
+                <form class="block-inline" action="{{route("commit.fork", ["book" => $book->id])}}" method="POST">
+                    {{csrf_field()}}
+                    <input class="btn btn_warning" type="submit" name="book[delete]" value="Fork">
                 </form>
                 <a class="btn btn_primary" href="{{route("commit.index", ["book" => $book->id])}}">Версии</a>
             </div>

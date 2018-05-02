@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Commit extends Model
@@ -128,5 +129,66 @@ class Commit extends Model
     public function next()
     {
         return $this->belongsToMany("App\\Commit", "commit_to_commit", "commit_id", "commit_child_id");
+    }
+
+    /**
+     * Создаёт копии всех сущностей связанных с книгой.
+     * @param Book $book
+     * @param User $user
+     * @return bool|Model
+     */
+    public static function fork(Book $book, User $user)
+    {
+        DB::beginTransaction();
+
+        $success = true;
+
+        $newBook = $book->replicate();
+        $newBook->author_id = $user->id;
+        $newBook->parent_book_id = $book->id;
+        $success = $newBook->save() && $success;
+
+        $chaptersLinks = [];
+        $chapters = $book->chapters;
+        foreach ($chapters as $chapter) {
+            $newChapter = $chapter->replicate();
+            $newChapter->book_id = $newBook->id;
+            $success = $newChapter->save() && $success;
+            $chaptersLinks[$chapter->id] = $newChapter->id;
+        }
+
+        $commitsLinks = [];
+        $commits = $book->commits;
+        foreach ($commits as $commit) {
+            $newCommit = $commit->replicate();
+            $newCommit->book_id = $newBook->id;
+            $success = $newCommit->save() && $success;
+            $commitsLinks[$commit->id] = $newCommit->id;
+        }
+
+        $commitsEdges = CommitToCommit::whereIn("commit_id", array_keys($commitsLinks))->get();
+        foreach ($commitsEdges as $commitEdge) {
+            $newCommitEdge = $commitEdge->replicate();
+            $newCommitEdge->commit_id = $commitsLinks[$newCommitEdge->commit_id];
+            $newCommitEdge->commit_child_id = $commitsLinks[$newCommitEdge->commit_child_id];
+            $success = $newCommitEdge->save() && $success;
+        }
+
+        $chaptersCopies = ChapterCopy::where("chapter_book_id", $book->id)->get();
+        foreach ($chaptersCopies as $copy) {
+            $newCopy = $copy->replicate();
+            $newCopy->chapter_id = $chaptersLinks[$copy->chapter_id];
+            $newCopy->chapter_book_id = $newBook->id;
+            $newCopy->commit_id = $commitsLinks[$copy->commit_id];
+            $success = $newCopy->save() && $success;
+        }
+
+        if ($success) {
+            DB::commit();
+            return $newBook;
+        } else {
+            DB::rollback();
+            return $success;
+        }
     }
 }
