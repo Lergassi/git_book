@@ -28,6 +28,7 @@ class BookController extends Controller
                 "title",
                 "created_at",
                 "author_id",
+                "headCommit",
             ],
             "books" => $books,
         ]);
