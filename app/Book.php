@@ -43,7 +43,7 @@ class Book extends Model
      */
     public function allChapters()
     {
-        return $this->hasMany("App\\Chapter")->where("status", "=", Chapter::STATUS_ACTIVE);
+        return $this->hasMany("App\\Chapter");
     }
 
     public function headCommit()

@@ -153,7 +153,7 @@ class Commit extends Model
         $success = $newBook->save() && $success;
 
         $chaptersLinks = [];
-        $chapters = $book->chapters;
+        $chapters = $book->allChapters;
         foreach ($chapters as $chapter) {
             $newChapter = $chapter->replicate();
             $newChapter->book_id = $newBook->id;

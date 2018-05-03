@@ -14,6 +14,6 @@ class CommitPolicy
     {
         $childBook = Book::where("parent_book_id", $book->id)->where("author_id", $user->id)->count();
 
-        return !$childBook;
+        return !$childBook && $book->author_id != $user->id;
     }
 }

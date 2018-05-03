@@ -55,7 +55,7 @@ class CommitController extends Controller
     public function fork(Book $book)
     {
         if (Gate::denies('fork', [Commit::class, $book])) {
-            throw new \Exception("Вы не можете создать больше одной копии книги.");
+            throw new \Exception("Вы не можете создать больше одной копии книги или копию своей книги.");
         }
 
         $newBook = Commit::fork($book, Auth::user());
