@@ -1,5 +1,7 @@
 @extends("layouts.main")
 
+@include("chapter._menu")
+
 @section("content")
     <div class="block block_border-primary">
         <div class="block__title">

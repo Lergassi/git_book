@@ -23,6 +23,8 @@
   border-bottom: 1px solid #f4f4f4;
   font-weight: 600;
   font-size: 16px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 .block_border-primary {
   border-top: 4px solid #3c8dbc;
@@ -39,3 +41,42 @@
 .block_border-danger {
   border-top: 4px solid #f56954;
 }
+.block_full-title-primary {
+  border: none;
+}
+.block_full-title-primary .block__title {
+  background-color: #3c8dbc;
+  color: #ffffff;
+}
+.block_full-title-info {
+  border: none;
+}
+.block_full-title-info .block__title {
+  background-color: #00c0ef;
+  color: #ffffff;
+}
+.block_full-title-success {
+  border: none;
+}
+.block_full-title-success .block__title {
+  background-color: #00a65a;
+  color: #ffffff;
+}
+.block_full-title-warning {
+  border: none;
+}
+.block_full-title-warning .block__title {
+  background-color: #f39c12;
+  color: #ffffff;
+}
+.block_full-title-danger {
+  border: none;
+}
+.block_full-title-danger .block__title {
+  background-color: #f56954;
+  color: #ffffff;
+}
+.block__content_unpadding {
+  padding: 0;
+}
+/*mods*/

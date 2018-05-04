@@ -1,0 +1,50 @@
+@import "variables";
+
+//@sidebar-width: 250px;
+@sidebar-bg-color: #f9fafc;
+
+.sidebar {
+  background-color: @sidebar-bg-color;
+  width: @base-sidebar-width;
+  float: left;
+
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.sidemenu {
+  list-style-type: none;
+}
+
+.sidemenu__item {
+
+}
+
+.sidemenu__link,
+.sidemenu__separator {
+  text-decoration: none;
+  color: @base-color;
+  padding: 10px;
+  border-bottom: 1px solid @base-border-color;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: @color-white-hover;
+  }
+}
+
+.sidemenu__separator {
+  background-color: @color-warning;
+  color: @color-white;
+  font-weight: @base-bold;
+  font-size: 16px;
+
+  &:hover {
+    background-color: @color-warning;
+  }
+}

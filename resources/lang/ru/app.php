@@ -8,5 +8,16 @@ return [
         "title" => "Название",
         "description" => "Описание",
         "author_id" => "Автор",
+        "chapters" => "Главы",
+    ],
+    "chapter" => [
+        "title" => "Заголовок",
+        "text" => "Текст",
+        "book_id" => "Книга",
+        "status" => "Статус",
+    ],
+    "commit" => [
+        "book_id" => "Книга",
+        "is_head" => "Последняя версия",
     ],
 ];

@@ -1,5 +1,7 @@
 @extends("layouts.main")
 
+@include("chapter._menu")
+
 @section("content")
     <div class="block block_border-primary">
         <div class="block__title">
@@ -16,12 +18,22 @@
                 </form>
             </div>
             <table class="table">
-                @foreach($chapter->getAttributes() as $key => $value)
                     <tr>
-                        <td>{{\App\Helper::trans("chapter." . $key)}}</td>
-                        <td>{{$value}}</td>
+                        <td>{{\App\Helper::trans("chapter.title")}}</td>
+                        <td>{{$chapter->title}}</td>
                     </tr>
-                @endforeach
+                    <tr>
+                        <td>{{\App\Helper::trans("chapter.text")}}</td>
+                        <td>{{$chapter->text}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{\App\Helper::trans("chapter.created_at")}}</td>
+                        <td>{{$chapter->created_at}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{\App\Helper::trans("chapter.updated_at")}}</td>
+                        <td>{{$chapter->updated_at}}</td>
+                    </tr>
             </table>
         </div>
     </div>

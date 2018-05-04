@@ -1,5 +1,7 @@
 @extends("layouts.main")
 
+@include("chapter._menu")
+
 @section("content")
     <form action="{{route("chapter.update", ["chapter" => $chapter->id])}}" method="POST">
         <div class="block block_border-primary">

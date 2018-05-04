@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         "clearcache" => \App\Http\Middleware\ClearCache::class,
         'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+        'menu' => \App\Http\Middleware\Menu::class,
     ];
 }

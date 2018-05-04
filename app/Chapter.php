@@ -27,7 +27,7 @@ class Chapter extends Model
     public static function createValidator(array $attributes)
     {
         return Validator::make($attributes, [
-            "chapter.title" => "string|max:256",
+            "chapter.title" => "required|string|max:256",
         ]);
     }
 

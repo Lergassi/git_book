@@ -96,6 +96,7 @@ class ChapterController extends Controller
     }
 
     /**
+     * TODO: Настройка прав к неактивным главам
      * Display the specified resource.
      *
      * @param  \App\Chapter  $chapter

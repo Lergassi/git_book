@@ -230,4 +230,5 @@ return [
 
 
     "adminsId" => [1],
+    "style" => "/css/adminlte.css",
 ];

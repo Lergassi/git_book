@@ -23,14 +23,13 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::where("author_id", Auth::user()->id)->get();
+        $books = Book::where("author_id", Auth::user()->id)->orderBy("title", "ASC")->get();
 
         return view("book/index", [
             "columns" => [
                 "title",
                 "description",
                 "created_at",
-                "chapters",
             ],
             "books" => $books,
         ]);
@@ -82,7 +81,7 @@ class BookController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Показывает информацию о книге и кнопки управления.
      *
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response

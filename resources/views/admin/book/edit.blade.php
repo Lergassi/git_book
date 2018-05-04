@@ -1,4 +1,4 @@
-@extends("layouts.main")
+@extends("admin.layouts.main")
 
 @section("content")
     <form action="{{route("admin.book.update", ["book" => $book->id])}}" method="POST">

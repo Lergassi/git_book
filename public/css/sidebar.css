@@ -1,0 +1,36 @@
+.sidebar {
+  background-color: #f9fafc;
+  width: 250px;
+  float: left;
+}
+.sidebar:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sidemenu {
+  list-style-type: none;
+}
+.sidemenu__link,
+.sidemenu__separator {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #f4f4f4;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sidemenu__link:hover,
+.sidemenu__separator:hover {
+  background-color: #f7f7f7;
+}
+.sidemenu__separator {
+  background-color: #f39c12;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+}
+.sidemenu__separator:hover {
+  background-color: #f39c12;
+}

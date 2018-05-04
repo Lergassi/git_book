@@ -10,8 +10,8 @@
                 <thead>
                     <tr>
                         @foreach($columns as $column)
-                            <th>{{$column}}</th>
-                    @endforeach
+                            <th>{{\App\Helper::trans("commit." . $column)}}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 @foreach($commits as $commit)

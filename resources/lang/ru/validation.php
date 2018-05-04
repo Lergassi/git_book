@@ -103,6 +103,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        "chapter.title" => [
+            "required" => "Поле «:attribute» должно быть заполнено.",
+        ]
     ],
 
     /*
@@ -119,6 +122,7 @@ return [
     //TODO: Как указать разный перевод для одинаковых названий атрибутов? book.title не работает при валидации.
     'attributes' => [
             "book" => trans("app.book"),
+            "chapter" => trans("app.chapter"),
         ],
 
 ];

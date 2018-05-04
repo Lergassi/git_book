@@ -11,7 +11,7 @@
 |
 */
 
-$middleware = [];
+$middleware = ["menu"];
 
 if (Config::get('app.debug')) {
     $middleware[] = "clearcache";
@@ -35,24 +35,25 @@ Route::middleware($middleware)->group(function () {
         Route::post("/fork/{book}", "CommitController@fork")->name("fork")->where("book", "\d+");
     });
 
+    Auth::routes();
+
     //backend
     Route::middleware(["isAdmin"])
         ->prefix("admin")
         ->namespace("Admin")
         ->name("admin.")
         ->group(function () {
-        Route::resource("book", "BookController")->only([
-            "show", "edit", "update", "index", "destroy",
-        ]);
-        Route::resource("chapter", "ChapterController")->only([
-            "show", "edit", "update", "index", "destroy",
-        ]);
+            Route::get("", "SiteController@homepage")->name("homepage");
+            Route::resource("book", "BookController")->only([
+                "show", "edit", "update", "index", "destroy",
+            ]);
+            Route::resource("chapter", "ChapterController")->only([
+                "show", "edit", "update", "index", "destroy",
+            ]);
 
-        //test
-        Route::get("test/html", "TestController@html");
+            //test
+            Route::get("test/html", "TestController@html");
     });
 });
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

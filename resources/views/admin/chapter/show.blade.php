@@ -1,4 +1,4 @@
-@extends("layouts.main")
+@extends("admin.layouts.main")
 
 @section("content")
     <div class="block block_border-primary">
