@@ -36,18 +36,20 @@
     <div class="wrapper">
         @yield("left-sidebar")
         <div class="content @yield("content-class")">
-            @if($errors->any())
-                <div class="block block_border-danger">
-                    <div class="block__title">Ошибка!</div>
-                    <div class="block__content">
-                        @foreach($errors->all() as $error)
-                            <ul>
-                                <li>{{$error}}</li>
-                            </ul>
-                        @endforeach
+            @section("errors")
+                @if($errors->any())
+                    <div class="block block_border-danger">
+                        <div class="block__title">Ошибка!</div>
+                        <div class="block__content">
+                            @foreach($errors->all() as $error)
+                                <ul>
+                                    <li>{{$error}}</li>
+                                </ul>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            @show
             @yield("content")
         </div>{{--end content--}}
         @yield("right-sidebar")

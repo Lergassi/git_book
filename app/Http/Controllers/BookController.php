@@ -23,7 +23,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::where("author_id", Auth::user()->id)->orderBy("title", "ASC")->get();
+        $books = Auth::user()->books;
 
         return view("book/index", [
             "columns" => [
