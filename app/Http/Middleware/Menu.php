@@ -28,9 +28,10 @@ class Menu
                 ];
             }
         } else {
-            $menu[] = [
-                "route" => "login", "label" => "ВХОД",
-            ];
+            $menu = array_merge($menu, [
+                ["route" => "login", "label" => "ВХОД",],
+                ["route" => "register", "label" => "РЕГИСТРАЦИЯ",],
+            ]);
         }
 
         View::share("menu", $menu);
